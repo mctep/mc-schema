@@ -1,0 +1,20 @@
+{
+	"node": true,
+	"esnext": true,
+	"globalstrict": false,
+	"smarttabs": true,
+	"trailing": true,
+	"undef": true,
+	"unused": false,
+	"eqeqeq": false,
+	"eqnull": true,
+	"lastsemic": true,
+	"nonbsp": true,
+	"maxdepth": 3,
+	"debug": true,
+	"evil": true,
+	"funcscope": true,
+	"loopfunc": true,
+	"notypeof": true,
+	"quotmark": false
+}
