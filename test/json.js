@@ -14,7 +14,6 @@ var IGNORE = [
 	'multipleOf.json',
 	'not.json',
 	'oneOf.json',
-	'pattern.json',
 	'ref.json',
 	'refRemote.json',
 	'one supplementary Unicode code point is not long enough',
