@@ -10,7 +10,6 @@
 	"eqnull": true,
 	"lastsemic": true,
 	"nonbsp": true,
-	"maxdepth": 3,
 	"debug": true,
 	"evil": true,
 	"funcscope": true,
