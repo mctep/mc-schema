@@ -14,8 +14,9 @@ var IGNORE = [
 	'multipleOf.json',
 	'not.json',
 	'oneOf.json',
-	'ref.json',
 	'refRemote.json',
+	'nested refs',
+	'remote ref, containing refs itself',
 	'one supplementary Unicode code point is not long enough',
 	'two supplementary Unicode code points is long enough'
 ];
@@ -38,7 +39,10 @@ _(fs.readdirSync(pathSuite))
 	if (IGNORE.indexOf(file) !== -1) { f = xdescribe; }
 	f(path.basename(file, '.json'), function() {
 		_.each(tests, function(test) {
-			describe(test.description, function() {
+			var f = describe;
+			if (IGNORE.indexOf(test.description) !== -1) { f = xdescribe; }
+
+			f(test.description, function() {
 				beforeEach(function() {
 					this.schema = validator.compile(test.schema);
 				});
