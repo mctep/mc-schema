@@ -7,7 +7,6 @@ var expect = require('expect.js');
 var pathSuite = path.resolve(__dirname, './json-schema-test-suite/tests/draft4/');
 
 var IGNORE = [
-	'additionalItems.json',
 	'allOf.json',
 	'anyOf.json',
 	'definitions.json',
