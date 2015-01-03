@@ -7,16 +7,7 @@ var expect = require('expect.js');
 var pathSuite = path.resolve(__dirname, './json-schema-test-suite/tests/draft4/');
 
 var IGNORE = [
-	'allOf.json',
-	'anyOf.json',
-	'definitions.json',
-	'dependencies.json',
-	'multipleOf.json',
-	'not.json',
-	'oneOf.json',
 	'refRemote.json',
-	'nested refs',
-	'remote ref, containing refs itself',
 	'one supplementary Unicode code point is not long enough',
 	'two supplementary Unicode code points is long enough'
 ];

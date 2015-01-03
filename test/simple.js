@@ -1,16 +1,12 @@
 var validator = require('../lib');
 
 var schema = validator.compile(
-	{
-		$ref: 'http://json-schema.org/draft-04/schema#'
-	}
+	{ "dependencies": {"bar": ["foo"]} }
 );
 
 
 schema.validate(
-	{
-        type: 1
-    }
+	{"bar": 2}
 );
 
-console.log(validator.getLastErrors());
+console.log(JSON.stringify(validator.getLastErrors(), null ,4));
