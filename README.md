@@ -1,4 +1,4 @@
-mc-schema
+mc-schema [![Build Status](https://travis-ci.org/mctep/mc-schema.svg?branch=master)](https://travis-ci.org/mctep/mc-schema)
 =========
 
 Very Fast JSON Schema Validator.
