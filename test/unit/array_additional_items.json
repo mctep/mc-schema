@@ -1,0 +1,51 @@
+[
+	{
+		"description": "errors on array additionalItems as boolean",
+		"schema": {
+			"type": "array",
+			"items": [{}, {}, {}],
+			"additionalItems": false
+		},
+		"tests": [
+			{
+				"description": "simple array",
+				"data": [1, 2, 3, 4],
+				"valid": false,
+				"errors": [
+					{
+						"code": "ARRAY_ADDITIONAL_ITEMS",
+						"expected": 3,
+						"actual": 4,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on array additionalItems as schema",
+		"schema": {
+			"type": "array",
+			"items": [{ "type": "integer" }, { "type": "integer" }],
+			"additionalItems": {
+				"type": "string"
+			}
+		},
+		"tests": [
+			{
+				"description": "simple array",
+				"data": [1, 2, 3],
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": ["string"],
+						"actual": "integer",
+						"dataPath": "#/2"
+					}
+				]
+			}
+		]
+	}
+]
