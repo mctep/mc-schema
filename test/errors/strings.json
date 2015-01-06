@@ -1,0 +1,70 @@
+[
+	{
+		"description": "errors on maxLength",
+		"schema": {
+			"maxLength": 2
+		},
+		"tests": [
+			{
+				"description": "STRING_LENGTH_LONG",
+				"data": "abc",
+				"valid": false,
+				"errors": [
+					{
+						"code": "STRING_LENGTH_LONG",
+						"expected": 2,
+						"actual": 3,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on minLength",
+		"schema": {
+			"minLength": 2
+		},
+
+		"tests": [
+			{
+				"description": "STRING_LENGTH_SHORT",
+				"data": "a",
+				"valid": false,
+				"errors": [
+					{
+						"code": "STRING_LENGTH_SHORT",
+						"expected": 2,
+						"actual": 1,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on pattern",
+		"schema": {
+			"pattern": "^a.c$"
+		},
+
+		"tests": [
+			{
+				"description": "STRING_PATTERN",
+				"data": "abd",
+				"valid": false,
+				"errors": [
+					{
+						"code": "STRING_PATTERN",
+						"expected": "^a.c$",
+						"actual": "abd",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+
+]

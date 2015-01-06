@@ -1,0 +1,38 @@
+[
+	{
+		"description": "errors on maxItems/minItems",
+		"schema": {
+			"type": "array",
+			"maxItems": 2,
+			"minItems": 1
+		},
+		"tests": [
+			{
+				"description": "ARRAY_LENGTH_LONG",
+				"data": [1, 2, 3],
+				"valid": false,
+				"errors": [
+					{
+						"code": "ARRAY_LENGTH_LONG",
+						"expected": 2,
+						"actual": 3,
+						"dataPath": "#/"
+					}
+				]
+			},
+			{
+				"description": "ARRAY_LENGTH_SHORT",
+				"data": [],
+				"valid": false,
+				"errors": [
+					{
+						"code": "ARRAY_LENGTH_SHORT",
+						"expected": 1,
+						"actual": 0,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+]

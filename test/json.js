@@ -37,7 +37,7 @@ function testDir(pathSuite) {
 				var f = describe;
 				if (IGNORE.indexOf(test.description) !== -1) { f = xdescribe; }
 
-				f(test.description, function() {
+				f(test.description || '', function() {
 					beforeEach(function() {
 						this.schema = validator.compile(test.schema);
 					});
@@ -49,7 +49,7 @@ function testDir(pathSuite) {
 					_.each(test.tests, function(test) {
 						var f = it;
 						if (IGNORE.indexOf(test.description) !== -1) { f = xit; }
-						f(test.description, testFn(test));
+						f(test.description || '', testFn(test));
 					});
 				});
 			});

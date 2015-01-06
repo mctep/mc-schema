@@ -85,6 +85,7 @@
 
 		"tests": [
 			{
+				"description": "error with patternProperties",
 				"data": {
 					"c1": 1,
 					"b": 2
