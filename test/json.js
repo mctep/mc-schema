@@ -15,6 +15,7 @@ var validator = require('../lib');
 
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/'));
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/optional'));
+testDir(path.resolve(__dirname, './unit'));
 
 function testDir(pathSuite) {
 	_(fs.readdirSync(pathSuite))
@@ -48,12 +49,21 @@ function testDir(pathSuite) {
 					_.each(test.tests, function(test) {
 						var f = it;
 						if (IGNORE.indexOf(test.description) !== -1) { f = xit; }
-						f(test.description, function() {
-							expect(this.schema.validate(test.data).valid).to.be(test.valid);
-						});
+						f(test.description, testFn(test));
 					});
 				});
 			});
 		});
 	});
+}
+
+function testFn(test) {
+	return function() {
+		var result = this.schema.validate(test.data);
+		expect(result.valid).to.be.eql(test.valid);
+
+		if (test.errors) {
+			expect(result.errors).to.be.eql(test.errors);
+		}
+	};
 }

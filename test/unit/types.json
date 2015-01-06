@@ -1,0 +1,219 @@
+[
+	{
+		"description": "error on object",
+		"schema": {
+			"type": "object"
+		},
+		"tests": [
+			{
+				"description": "simple object",
+				"data": 1,
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"object"
+						],
+						"actual": "integer",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+	{
+		"description": "error on nested object",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"foo": {
+					"type": "string"
+				}
+			}
+		},
+		"tests": [
+			{
+				"description": "nested object",
+				"data": {
+					"foo": 1
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "integer",
+						"dataPath": "#/foo"
+					}
+				]
+			}
+		]
+	},
+	{
+		"description": "error on very nested object",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"foo": {
+					"type": "object",
+					"properties": {
+						"bar": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"tests": [
+			{
+				"description": "nested object",
+				"data": {
+					"foo": 1
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"object"
+						],
+						"actual": "integer",
+						"dataPath": "#/foo"
+					}
+				]
+			},
+			{
+				"description": "very nested object",
+				"data": {
+					"foo": {
+						"bar": 1
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "integer",
+						"dataPath": "#/foo/bar"
+					}
+				]
+			}
+		]
+	},
+	{
+		"description": "error on array item",
+		"schema": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"foo": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"tests": [
+			{
+				"description": "simple item",
+				"data": [
+					1
+				],
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"object"
+						],
+						"actual": "integer",
+						"dataPath": "#/0"
+					}
+				]
+			},
+			{
+				"description": "nested item",
+				"data": [
+					{
+						"foo": 1
+					}
+				],
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "integer",
+						"dataPath": "#/0/foo"
+					}
+				]
+			},
+			{
+				"description": "few objects",
+				"data": [
+					{
+						"foo": 1
+					},
+					{
+						"foo": false
+					}
+				],
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "boolean",
+						"dataPath": "#/1/foo"
+					},
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "integer",
+						"dataPath": "#/0/foo"
+					}
+				]
+			},
+			{
+				"description": "complex items",
+				"data": [
+					{
+						"foo": 1
+					},
+					false
+				],
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"object"
+						],
+						"actual": "boolean",
+						"dataPath": "#/1"
+					},
+					{
+						"code": "INVALID_TYPE",
+						"expected": [
+							"string"
+						],
+						"actual": "integer",
+						"dataPath": "#/0/foo"
+					}
+				]
+			}
+		]
+	}
+]
