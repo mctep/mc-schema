@@ -15,7 +15,7 @@ var validator = require('../lib');
 
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/'));
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/optional'));
-testDir(path.resolve(__dirname, './unit'));
+testDir(path.resolve(__dirname, './errors'));
 
 function testDir(pathSuite) {
 	_(fs.readdirSync(pathSuite))

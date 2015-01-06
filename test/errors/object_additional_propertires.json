@@ -71,5 +71,35 @@
 				]
 			}
 		]
+	},
+
+	{
+		"description": "error with patternProperties",
+		"schema": {
+			"type": "object",
+			"additionalProperties": false,
+			"patternProperties": {
+				"c": {}
+			}
+		},
+
+		"tests": [
+			{
+				"data": {
+					"c1": 1,
+					"b": 2
+				},
+
+				"valid": false,
+
+				"errors": [
+					{
+						"code": "OBJECT_ADDITIONAL_PROPERTIES",
+						"actual": "b",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
 	}
 ]
