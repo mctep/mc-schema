@@ -1,0 +1,38 @@
+[
+	{
+		"description": "error on object required",
+		"schema": {
+			"type": "object",
+			"required": ["a", "b", "c"]
+		},
+		"tests": [
+			{
+				"description": "simple object",
+				"data": {},
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_REQUIRED",
+						"expected": ["a", "b", "c"],
+						"actual": [],
+						"dataPath": "#/"
+					}
+				]
+			},
+
+			{
+				"description": "simple object #2",
+				"data": { "a": 1 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_REQUIRED",
+						"expected": ["a", "b", "c"],
+						"actual": ["a"],
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+]

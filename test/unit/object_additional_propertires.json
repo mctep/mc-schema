@@ -1,0 +1,75 @@
+[
+	{
+		"description": "error on object additionalProperties boolean",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"a": { "type": "string" },
+				"b": { "type": "boolean" }
+			},
+			"additionalProperties": false
+		},
+		"tests": [
+			{
+				"description": "simple object",
+				"data": {  "a": "asd", "c": false, "d": 1 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_ADDITIONAL_PROPERTIES",
+						"actual": "d",
+						"dataPath": "#/"
+					},
+					{
+						"code": "OBJECT_ADDITIONAL_PROPERTIES",
+						"actual": "c",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "error on object additionalProperties schema",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"a": { "type": "string" },
+				"b": { "type": "boolean" }
+			},
+			"patternProperties": {
+				"^c": { "type": "null" }
+			},
+			"additionalProperties": { "type": "integer" }
+		},
+		"tests": [
+			{
+				"description": "simple object",
+				"data": {
+					"a": "1",
+					"b": false,
+					"c1": null,
+					"c2": false,
+					"d": 1,
+					"e": 1.1
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": ["integer"],
+						"actual": "number",
+						"dataPath": "#/e"
+					},
+					{
+						"code": "INVALID_TYPE",
+						"expected": ["null"],
+						"actual": "boolean",
+						"dataPath": "#/c2"
+					}
+				]
+			}
+		]
+	}
+]
