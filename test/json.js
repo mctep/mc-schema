@@ -49,8 +49,7 @@ function testDir(pathSuite) {
 						var f = it;
 						if (IGNORE.indexOf(test.description) !== -1) { f = xit; }
 						f(test.description, function() {
-							this.schema.validate(test.data);
-							expect(this.schema.isLastValid()).to.be(test.valid);
+							expect(this.schema.validate(test.data).valid).to.be(test.valid);
 						});
 					});
 				});

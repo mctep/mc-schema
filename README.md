@@ -12,7 +12,7 @@ It compile JSON schema to JavaScript code, like template engines (see below).
 ```js
 var mcSchema = require('mc-schema');
 
-mcSchema.validate({
+var result = mcSchema.validate({
     type: 'object',
     required: ['foo', 'bar']
 }, {
@@ -20,16 +20,16 @@ mcSchema.validate({
     bar: 2
 });
 
-mcSchema.isLastValid(); // true
+result.valid; // true
 
-mcSchema.validate({
+result = mcSchema.validate({
     type: 'object',
     required: ['foo', 'bar']
 }, {
     foo: 1
 });
 
-mcSchema.isLastValid(); // false
+result.valid; // false
 
 ```
 
@@ -43,11 +43,10 @@ var schema = mcSchema.compile({
     required: ['foo', 'bar']
 });
 
-schema.validate({});
-schema.isLastValid();
+schema.validate({}).valid; // false
 ```
 
-Comilation looks like this:
+Compilation looks like this:
 
 ```js
 var schema = {
