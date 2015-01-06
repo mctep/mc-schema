@@ -1,6 +1,6 @@
 {
   "name": "mc-schema",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Very Fast JSON Schema Validator",
   "keywords": [
     "json",
@@ -10,28 +10,22 @@
   "homepage": "https://github.com/mctep/mc-schema",
   "author": "mctep",
   "license": "MIT",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/mctep/mc-schema.git"
   },
-
   "bugs": {
     "url": "https://github.com/mctep/mc-schema/issues"
   },
-
   "scripts": {
     "test": "node_modules/.bin/_mocha test/json.js"
   },
-
   "main": "lib/index.js",
-
   "files": [
     "lib",
     "LICENSE",
     "README.md"
   ],
-
   "devDependencies": {
     "expect.js": "^0.3.1",
     "lodash": "^2.4.1",
