@@ -4,9 +4,8 @@ var path = require('path');
 var _ = require('lodash');
 var expect = require('expect.js');
 
-var pathSuite = path.resolve(__dirname, './json-schema-test-suite/tests/draft4/');
-
 var IGNORE = [
+	'zeroTerminatedFloats.json',
 	'refRemote.json',
 	'one supplementary Unicode code point is not long enough',
 	'two supplementary Unicode code points is long enough'
@@ -14,43 +13,48 @@ var IGNORE = [
 
 var validator = require('../lib');
 
-_(fs.readdirSync(pathSuite))
-.filter(function(file) {
-	return path.extname(file) == '.json';
-})
-.map(function(file) {
-	return [file, require(path.resolve(pathSuite, file))];
-})
-.each(function(data) {
-	var file = data[0];
-	var tests = data[1];
+testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/'));
+testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/optional'));
 
-	var f = describe;
+function testDir(pathSuite) {
+	_(fs.readdirSync(pathSuite))
+	.filter(function(file) {
+		return path.extname(file) == '.json';
+	})
+	.map(function(file) {
+		return [file, require(path.resolve(pathSuite, file))];
+	})
+	.each(function(data) {
+		var file = data[0];
+		var tests = data[1];
 
-	if (IGNORE.indexOf(file) !== -1) { f = xdescribe; }
-	f(path.basename(file, '.json'), function() {
-		_.each(tests, function(test) {
-			var f = describe;
-			if (IGNORE.indexOf(test.description) !== -1) { f = xdescribe; }
+		var f = describe;
 
-			f(test.description, function() {
-				beforeEach(function() {
-					this.schema = validator.compile(test.schema);
-				});
+		if (IGNORE.indexOf(file) !== -1) { f = xdescribe; }
+		f(path.basename(file, '.json'), function() {
+			_.each(tests, function(test) {
+				var f = describe;
+				if (IGNORE.indexOf(test.description) !== -1) { f = xdescribe; }
 
-				afterEach(function() {
-					delete this.schema;
-				});
+				f(test.description, function() {
+					beforeEach(function() {
+						this.schema = validator.compile(test.schema);
+					});
 
-				_.each(test.tests, function(test) {
-					var f = it;
-					if (IGNORE.indexOf(test.description) !== -1) { f = xit; }
-					f(test.description, function() {
-						this.schema.validate(test.data);
-						expect(this.schema.isLastValid()).to.be(test.valid);
+					afterEach(function() {
+						delete this.schema;
+					});
+
+					_.each(test.tests, function(test) {
+						var f = it;
+						if (IGNORE.indexOf(test.description) !== -1) { f = xit; }
+						f(test.description, function() {
+							this.schema.validate(test.data);
+							expect(this.schema.isLastValid()).to.be(test.valid);
+						});
 					});
 				});
 			});
 		});
 	});
-});
+}
