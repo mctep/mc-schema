@@ -1,0 +1,41 @@
+[
+	{
+		"description": "errors on maxProperties",
+		"schema": { "maxProperties": 2 },
+		"tests": [
+			{
+				"description": "OBJECT_PROPERTIES_MAXIMUM",
+				"data": { "a": 1, "b": 2, "c": 3 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_PROPERTIES_MAXIMUM",
+						"expected": 2,
+						"actual": 3,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on minProperties",
+		"schema": { "minProperties": 2 },
+		"tests": [
+			{
+				"description": "OBJECT_PROPERTIES_MINIMUM",
+				"data": { "a": 1 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_PROPERTIES_MINIMUM",
+						"expected": 2,
+						"actual": 1,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+]
