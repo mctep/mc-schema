@@ -21,15 +21,37 @@ var result = mcSchema.validate({
 });
 
 result.valid; // true
+result.errors; // []
 
 result = mcSchema.validate({
     type: 'object',
-    required: ['foo', 'bar']
+    properties: {
+        baz: {
+            type: 'object',
+            required: ['foo', 'bar'],
+            minProperties: 2
+        }
+    }
 }, {
-    foo: 1
+    baz: {
+        foo: 1
+    }
 });
 
 result.valid; // false
+result.errors;
+// [{
+//  code: 'OBJECT_REQUIRED',
+//  expected: ['foo', 'bar'],
+//  actual: ['foo'],
+//  dataPath: '#/baz'
+// }, {
+//  code: 'OBJECT_PROPERTIES_MINIMUM',
+//  expected: 2,
+//  actual: 1,
+//  dataPath: '#/baz'
+// }]
+
 
 ```
 
