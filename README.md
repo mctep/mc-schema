@@ -191,7 +191,7 @@ mcSchema.addTypeCoerce('object', function(value) {
     } catch (e) {}
 });
 
-var schema = mcScema.compile({
+var schema = mcSchema.compile({
     type: 'object',
     properties: {
         foo: { type: 'number' }
