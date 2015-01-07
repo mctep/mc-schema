@@ -1,0 +1,103 @@
+[
+	{
+		"description": "number exclusive minimum/maximum",
+		"schema": {
+			"type": "number",
+			"minimum": 1,
+			"maximum": 2,
+			"exclusiveMaximum": true,
+			"exclusiveMinimum": true
+		},
+
+		"tests": [
+			{
+				"description": "minimum",
+				"data": 1,
+				"valid": false,
+				"errors": [
+					{
+						"code": "NUMBER_MINIMUM_EXCLUSIVE",
+						"expected": 1,
+						"actual": 1,
+						"dataPath": "#/"
+					}
+				]
+			},
+
+			{
+				"description": "maximum",
+				"data": 2,
+				"valid": false,
+				"errors": [
+					{
+						"code": "NUMBER_MAXIMUM_EXCLUSIVE",
+						"expected": 2,
+						"actual": 2,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "number minimum/maximum, multipleOf",
+		"schema": {
+			"type": "number",
+			"minimum": 2,
+			"maximum": 6,
+			"multipleOf": 2
+		},
+
+		"tests": [
+			{
+				"description": "minimum",
+				"data": 0,
+				"valid": false,
+				"errors": [
+					{
+						"code": "NUMBER_MINIMUM",
+						"expected": 2,
+						"actual": 0,
+						"dataPath": "#/"
+					}
+				]
+			},
+
+			{
+				"description": "maximum",
+				"data": 8,
+				"valid": false,
+				"errors": [
+					{
+						"code": "NUMBER_MAXIMUM",
+						"expected": 6,
+						"actual": 8,
+						"dataPath": "#/"
+					}
+				]
+			},
+
+			{
+				"description": "maximum and multipleOf",
+				"data": 7,
+				"valid": false,
+				"errors": [
+					{
+						"code": "NUMBER_MAXIMUM",
+						"expected": 6,
+						"actual": 7,
+						"dataPath": "#/"
+					},
+
+					{
+						"code": "NUMBER_MULTIPLE_OF",
+						"expected": 2,
+						"actual": 7,
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+]
