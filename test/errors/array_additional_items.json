@@ -47,5 +47,25 @@
 				]
 			}
 		]
+	},
+
+	{
+		"description": "errros on non uniq array",
+		"schema": {
+			"uniqueItems": true
+		},
+		"tests": [
+			{
+				"description": "invalid",
+				"data": [1,{ "b": 1 }, { "b": 1 }],
+				"valid": false,
+				"errors": [
+					{
+						"code": "ARRAY_UNIQUE",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
 	}
 ]
