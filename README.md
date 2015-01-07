@@ -85,6 +85,38 @@ function validate(data) {
 }
 ```
 
+# Schema `default` property
+
+It can be define default properties for `undefined` values by schema if property is required:
+
+```js
+var data = {};
+var schema = mcSchema.compile({
+    type: 'object',
+    required: ['foo']
+    properties: {
+        foo: {
+            default: 1
+        },
+        bar: {
+            default: 2
+        }
+    }
+});
+
+var result = schema.validate(data);
+
+result.valid === true;
+result.errors.length === 0;
+result.data === data;
+//
+// data === {
+//  foo: 1 // only `foo` sets to `default` because it is required
+// }
+//
+
+```
+
 # Tests
 
 This validator uses [JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).

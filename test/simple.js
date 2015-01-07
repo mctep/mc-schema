@@ -1,12 +1,25 @@
 var validator = require('../lib');
 
-var schema = validator.compile(
-	{ "dependencies": {"bar": ["foo"]} }
+var schema = validator.compile({
+
+
+	"type": "object",
+	"required": ["foo"],
+	"properties": {
+		"foo": {
+			"type": "string",
+			"default": "abc"
+		},
+		"bar": {
+			"type": "number",
+			"default": 1
+		}
+	},
+	"default": {	}
+}
 );
 
 
-schema.validate(
-	{"bar": 2}
-);
+var result = schema.validate();
 
-console.log(JSON.stringify(validator.getLastErrors(), null ,4));
+console.log(JSON.stringify(result, null ,4));

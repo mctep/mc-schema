@@ -1,0 +1,55 @@
+[
+	{
+		"description": "default property",
+		"schema": {
+			"type": "string",
+			"default": "a"
+		},
+
+		"tests": [
+			{
+				"description": "simple",
+				"valid": true,
+				"out": "a"
+			}
+		]
+	},
+
+	{
+		"description": "default nested properties",
+		"schema": {
+			"type": "object",
+			"required": ["foo"],
+			"properties": {
+				"foo": {
+					"type": "string",
+					"default": "abc"
+				},
+				"bar": {
+					"type": "number",
+					"default": 1
+				}
+			},
+			"default": {}
+		},
+
+		"tests": [
+			{
+				"description": "set defaults from undefined",
+				"valid": true,
+				"out": {
+					"foo": "abc"
+				}
+			},
+
+			{
+				"description": "set defaults if required",
+				"data": {},
+				"valid": true,
+				"out": {
+					"foo": "abc"
+				}
+			}
+		]
+	}
+]

@@ -65,5 +65,9 @@ function testFn(test) {
 		if (test.errors) {
 			expect(result.errors).to.be.eql(test.errors);
 		}
+
+		if (test.out) {
+			expect(result.data).to.be.eql(test.out);
+		}
 	};
 }
