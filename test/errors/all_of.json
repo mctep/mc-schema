@@ -1,0 +1,89 @@
+[
+	{
+		"description": "errors for allOf",
+		"schema": {
+			"properties": {
+				"foo": {
+					"properties": {
+						"bar": {
+							"allOf": [
+								{
+									"type": "object"
+								},
+								{
+									"required": ["a"]
+								},
+								{
+									"minProperties": 1
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"tests": [
+			{
+				"description": "type error",
+				"data": {
+					"foo": {
+						"bar": 1
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "INVALID_TYPE",
+						"expected": ["object"],
+						"actual": "integer",
+						"dataPath": "#/foo/bar"
+					}
+				]
+			},
+
+			{
+				"description": "required error",
+				"data": {
+					"foo": {
+						"bar": {
+							"b": 1
+						}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_REQUIRED",
+						"expected": ["a"],
+						"actual": ["b"],
+						"dataPath": "#/foo/bar"
+					}
+				]
+			},
+
+			{
+				"description": "required and minProperties error",
+				"data": {
+					"foo": {
+						"bar": {}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_PROPERTIES_MINIMUM",
+						"expected": 1,
+						"actual": 0,
+						"dataPath": "#/foo/bar"
+					},
+					{
+						"code": "OBJECT_REQUIRED",
+						"expected": ["a"],
+						"actual": [],
+						"dataPath": "#/foo/bar"
+					}
+				]
+			}
+		]
+	}
+]
