@@ -1,0 +1,47 @@
+[
+	{
+		"description": "Coerce to array",
+		"schema": {
+			"type": "array"
+		},
+
+		"tests": [
+			{
+				"description": "from undefined",
+				"coerce": true
+			},
+			{
+				"description": "from true",
+				"coerce": true,
+				"data": true
+			},
+			{
+				"description": "from false",
+				"coerce": true,
+				"data": false
+			},
+			{
+				"description": "from number",
+				"coerce": true,
+				"data": 1
+			},
+			{
+				"description": "from object",
+				"coerce": true,
+				"data": {}
+			},
+			{
+				"description": "from string",
+				"coerce": true,
+				"data": "1,2,3",
+				"out": [1,2,3]
+			},
+			{
+				"description": "from array",
+				"coerce": true,
+				"data": [1,2,3],
+				"out": [1,2,3]
+			}
+		]
+	}
+]

@@ -1,0 +1,245 @@
+[
+	{
+		"description": "coerce object with additional properties as boolean",
+		"schema": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"a": { "type": "object" }
+			},
+			"patternProperties": {
+				"^b": { "type": "boolean" }
+			}
+		},
+
+		"tests": [
+			{
+				"description": "from undefined",
+				"coerce": true
+			},
+
+			{
+				"description": "from string",
+				"data": "abcd",
+				"coerce": true
+			},
+
+			{
+				"description": "from valid object",
+				"data": {
+					"a": {}
+				},
+				"coerce": true,
+				"out": {
+					"a": {}
+				}
+			},
+
+			{
+				"description": "from object with invalid properties",
+				"data": {
+					"a": "string",
+					"c": "string"
+				},
+				"coerce": true,
+				"out": {}
+			},
+
+			{
+				"description": "from object with valid properties",
+				"data": {
+					"a": {},
+					"c": "string"
+				},
+				"coerce": true,
+				"out": {
+					"a": {}
+				}
+			},
+
+			{
+				"description": "from object with valid pattern properties",
+				"data": {
+					"a": {},
+					"c": "string",
+					"d": "string",
+					"b1": "string",
+					"b2": "string"
+				},
+				"coerce": true,
+				"out": {
+					"a": {},
+					"b1": true,
+					"b2": true
+				}
+			}
+		]
+	},
+
+	{
+		"description": "coerce nested object with additional properties as boolean",
+		"schema": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"foo": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"bar": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"baz": {
+									"type": "object",
+									"additionalProperties": false
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": {
+								"foo": {}
+							},
+							"foo": {}
+						},
+						"baz": {}
+					},
+					"bar": {}
+				},
+				"out": {
+					"foo": {
+						"bar": {
+							"baz": {}
+						}
+					}
+				}
+			}
+		]
+	},
+
+	{
+		"description": "coerce object with additional properties as schema",
+		"schema": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "integer"
+			},
+			"properties": {
+				"a": { "type": "object" }
+			},
+			"patternProperties": {
+				"^b": { "type": "boolean" }
+			}
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": {
+					"a": {},
+					"b1": true,
+					"c": "1.2"
+				},
+				"out": {
+					"a": {},
+					"b1": true,
+					"c": 1
+				}
+			}
+		]
+	},
+
+	{
+		"description": "simple",
+		"schema": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"foo": { "type": "boolean" },
+				"bar": { "type": "string" }
+			}
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": {
+					"foo": "false",
+					"bar": 1,
+					"baz": {}
+				},
+				"out": {
+					"foo": false,
+					"bar": "1"
+				}
+			}
+		]
+	},
+
+	{
+		"description": "complex",
+
+		"schema": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+			    "foo": {
+			        "type": "array",
+			        "additionalItems": false,
+			        "items": [{ "type": "boolean" }]
+			    },
+			    "bar": {
+			        "type": "array",
+			        "items": {
+			            "type": "object",
+			            "required": ["baz"],
+			            "properties": {
+			            	"baz": { "type": "integer" }
+			            }
+			        },
+			        "minItems": 1
+			    }
+			}
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": {
+					"foo": ["false", 1],
+					"bar": [{}]
+				},
+				"out": {
+					"foo": [false]
+				}
+			},
+
+			{
+				"description": "case #2",
+				"coerce": true,
+				"data": {
+					"foo": ["false", 1],
+					"bar": [{ "baz": "2.1" }]
+				},
+				"out": {
+					"foo": [false],
+					"bar": [{ "baz": 2 }]
+				}
+			}
+		]
+	}
+]

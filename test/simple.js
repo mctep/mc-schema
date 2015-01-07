@@ -1,25 +1,16 @@
 var validator = require('../lib');
 
+validator.addTypeCoerce('object', function(value) {
+	try {
+		return JSON.parse(value);
+	} catch (e) {}
+});
+
 var schema = validator.compile({
+	type: 'object',
+	properties: {
+		foo: { type: 'number' }
+	}
+});
 
-
-	"type": "object",
-	"required": ["foo"],
-	"properties": {
-		"foo": {
-			"type": "string",
-			"default": "abc"
-		},
-		"bar": {
-			"type": "number",
-			"default": 1
-		}
-	},
-	"default": {	}
-}
-);
-
-
-var result = schema.validate();
-
-console.log(JSON.stringify(result, null ,4));
+console.log(schema.coerce('{"foo":"1"}'));

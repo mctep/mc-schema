@@ -1,0 +1,63 @@
+[
+	{
+		"description": "Coerce to boolean",
+		"schema": {
+			"type": "boolean"
+		},
+
+		"tests": [
+			{
+				"description": "from undefined",
+				"coerce": true
+			},
+			{
+				"description": "from 'true'",
+				"coerce": true,
+				"data": "true",
+				"out": true
+			},
+			{
+				"description": "from 'false'",
+				"coerce": true,
+				"data": "false",
+				"out": false
+			},
+			{
+				"description": "from number",
+				"coerce": true,
+				"data": 1,
+				"out": true
+			},
+			{
+				"description": "from object",
+				"coerce": true,
+				"data": {},
+				"out": false
+			},
+			{
+				"description": "from empty string",
+				"coerce": true,
+				"data": "",
+				"out": false
+			},
+			{
+				"description": "from not empty string",
+				"coerce": true,
+				"data": "a1.1",
+				"out": true
+			},
+			{
+				"description": "from empty array",
+				"coerce": true,
+				"data": [],
+				"out": false
+			},
+			{
+				"description": "from not empty array",
+				"coerce": true,
+				"data": [1,2,3],
+				"out": true
+			}
+		]
+	}
+]

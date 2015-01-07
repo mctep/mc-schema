@@ -21,37 +21,15 @@ var result = mcSchema.validate({
 });
 
 result.valid; // true
-result.errors; // []
 
 result = mcSchema.validate({
     type: 'object',
-    properties: {
-        baz: {
-            type: 'object',
-            required: ['foo', 'bar'],
-            minProperties: 2
-        }
-    }
+    required: ['foo', 'bar']
 }, {
-    baz: {
-        foo: 1
-    }
+    foo: 1
 });
 
 result.valid; // false
-result.errors;
-// [{
-//  code: 'OBJECT_REQUIRED',
-//  expected: ['foo', 'bar'],
-//  actual: ['foo'],
-//  dataPath: '#/baz'
-// }, {
-//  code: 'OBJECT_PROPERTIES_MINIMUM',
-//  expected: 2,
-//  actual: 1,
-//  dataPath: '#/baz'
-// }]
-
 
 ```
 
@@ -115,6 +93,113 @@ result.data === data;
 // }
 //
 
+```
+
+## Coerce after validate
+
+You can fix invalid JSON objects by using `schema.coerce`. It tries to fix value when `INVALID_TYPE` error happens, delete invalid properties and items on `OBJECT_ADDITIONAL_PROPERTIES` or `ARRAY_ADDITIONAL_ITEMS` errors. In other cases it deletes all invalid values. If attemption to fix value is failed, it returns `undefined`;
+
+Simple case:
+
+```js
+var schema = mcSchema.compile({
+    type: 'object',
+    additionalProperties: false,
+    required: ['foo'],
+    properties: {
+        foo: { type: 'boolean' },
+        bar: { type: 'string' }
+    }
+});
+
+var result = schema.coerce({
+    foo: 'false',
+    bar: 1,
+    baz: {}
+});
+
+// result = {
+//  foo: false,
+//  bar: '1'
+// };
+
+var result2 = schema.coerce({
+    bar: 'baz'
+});
+
+//
+// result2 = undefined
+//
+```
+
+Complex case:
+
+```js
+var schema = mcSchema.compile({
+    type: 'object',
+    additionalProperties: false,
+    properties: {
+        foo: {
+            type: 'array',
+            additionalItems: false,
+            items: [{ type: 'boolean' }]
+        },
+        bar: {
+            type: 'array',
+            items: {
+                type: 'object',
+                required: ['baz'],
+                properties: {
+                    baz: {
+                        type: 'integer'
+                    }
+                }
+            },
+            minItems: 1 
+        }
+    }
+});
+
+var result = schema.coerce({
+    foo: ['false', 1],
+    bar: [{}]
+});
+
+// result = {
+//  foo: [false]
+// }
+// 
+var result2 = schema.coerce({
+    foo: ['false', 1],
+    bar: [{ baz: '2.1'}]
+});
+
+// result2 = {
+//  foo: [false],
+//  bar: [{baz: 2}]
+// }
+```
+
+### Custom type coerce
+
+To add custom type or redefine coerce, use `mcSchema.addTypeCoerce`:
+
+```js
+mcSchema.addTypeCoerce('object', function(value) {
+    try {
+        return JSON.parse(value);
+    } catch (e) {}
+});
+
+var schema = mcScema.compile({
+    type: 'object',
+    properties: {
+        foo: { type: 'number' }
+    }
+});
+
+var result = schema.coerce('{"foo":"1"}');
+// result = { foo: 1 }
 ```
 
 ## Tests

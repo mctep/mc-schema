@@ -16,6 +16,7 @@ var validator = require('../lib');
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/'));
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/optional'));
 testDir(path.resolve(__dirname, './errors'));
+testDir(path.resolve(__dirname, './coerce'));
 
 function testDir(pathSuite) {
 	_(fs.readdirSync(pathSuite))
@@ -59,15 +60,21 @@ function testDir(pathSuite) {
 
 function testFn(test) {
 	return function() {
-		var result = this.schema.validate(test.data);
-		expect(result.valid).to.be.eql(test.valid);
+		var result;
+		if (test.coerce) {
+			result = this.schema.coerce(test.data);
+			expect(result).to.be.eql(test.out);
+		} else {
+			result = this.schema.validate(test.data);
+			expect(result.valid).to.be.eql(test.valid);
 
-		if (test.errors) {
-			expect(result.errors).to.be.eql(test.errors);
-		}
+			if (test.errors) {
+				expect(result.errors).to.be.eql(test.errors);
+			}
 
-		if (test.out) {
-			expect(result.data).to.be.eql(test.out);
+			if (test.out) {
+				expect(result.data).to.be.eql(test.out);
+			}
 		}
 	};
 }

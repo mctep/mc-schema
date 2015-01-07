@@ -1,0 +1,57 @@
+[
+	{
+		"description": "coerce array with additional items as boolean",
+		"schema": {
+			"type": "array",
+			"additionalItems": false,
+			"items": [{},{},{}]
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": [1,2,3,4],
+				"out": [1,2,3]
+			}
+		]
+	},
+
+	{
+		"description": "coerce empty array with additional items as boolean",
+		"schema": {
+			"type": "array",
+			"additionalItems": false,
+			"items": []
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": [1,2,3,4],
+				"out": []
+			}
+		]
+	},
+
+	{
+		"description": "coerce empty array with additional items as schema",
+		"schema": {
+			"type": "array",
+			"additionalItems": {
+				"type": "object"
+			},
+			"items": [{},{}]
+		},
+
+		"tests": [
+			{
+				"description": "case #1",
+				"coerce": true,
+				"data": [1,2,{ "a": 1},1,2,{ "a": 2}],
+				"out": [1,2,{ "a": 1},{ "a": 2}]
+			}
+		]
+	}
+]

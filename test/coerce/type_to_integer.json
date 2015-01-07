@@ -1,0 +1,55 @@
+[
+	{
+		"description": "Coerce to integer",
+		"schema": {
+			"type": "integer"
+		},
+
+		"tests": [
+			{
+				"description": "from undefined",
+				"coerce": true
+			},
+			{
+				"description": "from true",
+				"coerce": true,
+				"data": true,
+				"out": 1
+			},
+			{
+				"description": "from false",
+				"coerce": true,
+				"data": false,
+				"out": 0
+			},
+			{
+				"description": "from number",
+				"coerce": true,
+				"data": 1.6,
+				"out": 1
+			},
+			{
+				"description": "from object",
+				"coerce": true,
+				"data": {}
+			},
+			{
+				"description": "from string valid",
+				"coerce": true,
+				"data": "1.1",
+				"out": 1
+			},
+			{
+				"description": "from string invalid",
+				"coerce": true,
+				"data": "a1.1"
+			},
+			{
+				"description": "from array",
+				"coerce": true,
+				"data": ["2.3",2,3],
+				"out": 2
+			}
+		]
+	}
+]
