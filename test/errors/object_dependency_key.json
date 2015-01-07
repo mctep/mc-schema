@@ -1,0 +1,78 @@
+[
+	{
+		"description": "error on missing dependencies as array",
+		"schema": {
+			"type": "object",
+			"dependencies": {
+				"foo": ["bar"],
+				"bar": ["a", "b", "c"]
+			}
+		},
+
+		"tests": [
+			{
+				"description": "missing single field",
+				"data": { "foo": 1 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_DEPENDENCY_KEY",
+						"expected": ["bar"],
+						"dependent": "foo"
+					}
+				]
+			},
+
+			{
+				"description": "missing few fields",
+				"data": { "foo": 1, "bar": 1 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_DEPENDENCY_KEY",
+						"expected": ["c", "b", "a"],
+						"dependent": "bar"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "error on missing dependencies as schema",
+		"schema": {
+			"type": "object",
+			"dependencies": {
+				"foo": {
+					"minProperties": 3
+				}
+			}
+		},
+
+		"tests": [
+			{
+				"description": "depends on min properties",
+				"data": {
+					"foo": 1
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "OBJECT_DEPENDENCY_KEY",
+						"dependent": "foo"
+					}
+				]
+			},
+
+			{
+				"description": "depends on min properties valid",
+				"data": {
+					"foo": 1,
+					"a": 1,
+					"b": 1
+				},
+				"valid": true
+			}
+		]
+	}
+]
