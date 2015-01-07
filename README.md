@@ -7,7 +7,7 @@ This package is collection of ideas [json-model](https://github.com/geraintluff/
 
 It compile JSON schema to JavaScript code, like template engines (see below).
 
-# Using
+## Using
 
 ```js
 var mcSchema = require('mc-schema');
@@ -55,7 +55,7 @@ result.errors;
 
 ```
 
-# Precompile
+## Precompile
 
 For best speed you can compile schemas before validating:
 
@@ -85,7 +85,7 @@ function validate(data) {
 }
 ```
 
-# Schema `default` property
+## Schema `default` property
 
 It can be define default properties for `undefined` values by schema if property is required:
 
@@ -117,6 +117,6 @@ result.data === data;
 
 ```
 
-# Tests
+## Tests
 
 This validator uses [JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).
