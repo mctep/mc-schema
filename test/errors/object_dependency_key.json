@@ -18,7 +18,8 @@
 					{
 						"code": "OBJECT_DEPENDENCY_KEY",
 						"expected": ["bar"],
-						"dependent": "foo"
+						"dependent": "foo",
+						"dataPath": "#/"
 					}
 				]
 			},
@@ -31,7 +32,8 @@
 					{
 						"code": "OBJECT_DEPENDENCY_KEY",
 						"expected": ["c", "b", "a"],
-						"dependent": "bar"
+						"dependent": "bar",
+						"dataPath": "#/"
 					}
 				]
 			}
@@ -59,7 +61,8 @@
 				"errors": [
 					{
 						"code": "OBJECT_DEPENDENCY_KEY",
-						"dependent": "foo"
+						"dependent": "foo",
+						"dataPath": "#/"
 					}
 				]
 			},

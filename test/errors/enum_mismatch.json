@@ -1,0 +1,38 @@
+[
+	{
+		"description": "error on enum",
+		"schema": {
+			"enum": ["a", { "c": 2, "b": 3 }, 1]
+		},
+
+		"tests": [
+			{
+				"description": "invalid string",
+				"data": "b",
+				"valid": false,
+				"errors": [
+					{
+						"code": "ENUM_MISMATCH",
+						"expected": ["a", { "c": 2, "b": 3 }, 1],
+						"actual": "b",
+						"dataPath": "#/"
+					}
+				]
+			},
+
+			{
+				"description": "invalid object",
+				"data": { "c": "2", "b": 3 },
+				"valid": false,
+				"errors": [
+					{
+						"code": "ENUM_MISMATCH",
+						"expected": ["a", { "c": 2, "b": 3 }, 1],
+						"actual": { "c": "2", "b": 3 },
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	}
+]
