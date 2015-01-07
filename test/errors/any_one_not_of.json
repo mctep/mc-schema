@@ -1,0 +1,154 @@
+[
+	{
+		"description": "any of error",
+		"schema": {
+			"properties": {
+				"foo": {
+					"properties": {
+						"bar": {
+							"properties": {
+								"baz": {
+									"anyOf": [
+										{ "type": "string" },
+										{ "type": "boolean" },
+										{ "type": "number" }
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"tests": [
+			{
+				"description": "invalid",
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": {}
+						}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "ANY_OF_MISSING",
+						"dataPath": "#/foo/bar/baz"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "one of error",
+		"schema": {
+			"properties": {
+				"foo": {
+					"properties": {
+						"bar": {
+							"properties": {
+								"baz": {
+									"oneOf": [
+										{ "minimum": 1 },
+										{ "multipleOf": 2 }
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"tests": [
+			{
+				"description": "valid",
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": 1
+						}
+					}
+				},
+				"valid": true
+			},
+
+			{
+				"description": "invalid missing",
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": -1
+						}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "ONE_OF_MISSING",
+						"dataPath": "#/foo/bar/baz"
+					}
+				]
+			},
+
+			{
+				"description": "invalid multiple",
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": 2
+						}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "ONE_OF_MULTIPLE",
+						"dataPath": "#/foo/bar/baz"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on not",
+		"schema": {
+			"properties": {
+				"foo": {
+					"properties": {
+						"bar": {
+							"properties": {
+								"baz": {
+									"not": { "minimum": 1 }
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"tests": [
+			{
+				"description": "invalid",
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": 2
+						}
+					}
+				},
+				"valid": false,
+				"errors": [
+					{
+						"code": "NOT_PASSED",
+						"dataPath": "#/foo/bar/baz"
+					}
+				]
+			}
+		]
+	}
+]
