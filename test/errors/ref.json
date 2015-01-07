@@ -1,0 +1,63 @@
+[
+	{
+		"description": "errors on unresolved schema reference",
+		"schema": {
+			"$ref": "#/abc/abc"
+		},
+		"tests": [
+			{
+				"description": "invalid",
+				"data": {},
+				"valid": false,
+				"errors": [
+					{
+						"code": "UNKNOWN_REFERENCE",
+						"expected": "#/abc/abc",
+						"dataPath": "#/"
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"description": "errors on unresolved nested schema reference",
+		"schema": {
+			"definitions": {
+				"foo": {
+					"properties": {
+						"bar": { "$ref": "#/definitions/bar" }
+					}
+				},
+				"bar": {
+					"properties": {
+						"baz": { "$ref": "#/definitions/baz" }
+					}
+				}
+			},
+			"properties": {
+				"foo": { "$ref": "#/definitions/foo" }
+			}
+		},
+		"tests": [
+			{
+				"description": "invalid",
+				"valid": false,
+				"data": {
+					"foo": {
+						"bar": {
+							"baz": 1
+						}
+					}
+				},
+				"errors": [
+					{
+						"code": "UNKNOWN_REFERENCE",
+						"expected": "#/definitions/baz",
+						"dataPath": "#/foo/bar/baz"
+					}
+				]
+			}
+		]
+	}
+]
