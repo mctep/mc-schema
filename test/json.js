@@ -65,7 +65,9 @@ function testFn(test) {
 			result = this.schema.coerce(test.data);
 			expect(result).to.be.eql(test.out);
 		} else {
-			result = this.schema.validate(test.data);
+			result = this.schema.validate(test.data, test.errors ? {
+				collectErrors: true
+			} : {});
 			expect(result.valid).to.be.eql(test.valid);
 
 			if (test.errors) {
