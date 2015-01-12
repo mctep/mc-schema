@@ -21,6 +21,33 @@
 	},
 
 	{
+		"description": "escaped refs",
+		"schema": {
+			"boo%bar": { "type": "integer" },
+			"properties": {
+				"boo": { "$ref": "#/boo%25bar" }
+			}
+		},
+		"tests": [
+			{
+				"description": "invalid",
+				"data": {
+					"boo": "string"
+				},
+				"valid": false
+			},
+
+			{
+				"description": "valid",
+				"data": {
+					"boo": 1
+				},
+				"valid": true
+			}
+		]
+	},
+
+	{
 		"description": "circular reference",
 		"schema": {
 			"id": "abc",

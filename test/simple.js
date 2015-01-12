@@ -1,16 +1,9 @@
 var validator = require('../lib');
 
-validator.addTypeCoerce('object', function(value) {
-	try {
-		return JSON.parse(value);
-	} catch (e) {}
-});
+var schema = validator.compile(
+	{"$ref": "http://json-schema.org/draft-04/schema#"}
+);
 
-var schema = validator.compile({
-	type: 'object',
-	properties: {
-		foo: { type: 'number' }
-	}
-});
-
-console.log(schema.coerce('{"foo":"1"}'));
+console.log(schema.validate(
+	{"minLength": 1}
+));
