@@ -69,8 +69,8 @@
 				"coerce": true,
 				"out": {
 					"a": {},
-					"b1": true,
-					"b2": true
+					"b1": false,
+					"b2": false
 				}
 			}
 		]

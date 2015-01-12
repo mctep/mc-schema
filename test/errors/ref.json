@@ -21,6 +21,31 @@
 	},
 
 	{
+		"description": "circular reference",
+		"schema": {
+			"id": "abc",
+			"type": "object",
+			"properties": {
+				"a": {
+					"$ref": "abc"
+				}
+			}
+		},
+
+		"tests": [
+			{
+				"description": "valid",
+				"data": {
+					"a": {
+						"a": {}
+					}
+				},
+				"valid": true
+			}
+		]
+	},
+
+	{
 		"description": "errors on unresolved nested schema reference",
 		"schema": {
 			"definitions": {

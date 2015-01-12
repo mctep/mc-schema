@@ -41,9 +41,21 @@
 				"out": false
 			},
 			{
-				"description": "from not empty string",
+				"description": "from invalid number string",
 				"coerce": true,
 				"data": "a1.1",
+				"out": false
+			},
+			{
+				"description": "from valid number string '0'",
+				"coerce": true,
+				"data": "0",
+				"out": false
+			},
+			{
+				"description": "from valid number string '1'",
+				"coerce": true,
+				"data": "1",
 				"out": true
 			},
 			{
