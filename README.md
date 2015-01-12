@@ -1,7 +1,7 @@
 mc-schema [![Build Status](https://travis-ci.org/mctep/mc-schema.svg?branch=master)](https://travis-ci.org/mctep/mc-schema) [![Dependency Status](https://gemnasium.com/mctep/mc-schema.svg)](https://gemnasium.com/mctep/mc-schema)
 =========
 
-Very Fast JSON Schema Validator.
+Very Fast JSON Schema Validator. See [benchmark](https://rawgit.com/mctep/mc-schema/master/benchmark.html) generated with [z-schema](https://github.com/zaggino/z-schema) benchmark tool.
 
 This package is collection of ideas [json-model](https://github.com/geraintluff/json-model) and some code [z-schema](https://github.com/zaggino/z-schema).
 
@@ -200,6 +200,35 @@ var schema = mcSchema.compile({
 
 var result = schema.coerce('{"foo":"1"}');
 // result = { foo: 1 }
+```
+
+## Collect errors
+
+By default `mc-schema` stops validating after first error. Use `collectErrors` option for prevent it behaviour in `validate`:
+
+```js
+var schema = mcSchema.compile({
+    type: 'array',
+    items: {
+        type: 'integer'
+    }
+});
+
+var result = schema.validate([1, 2, '3', false], { collectErrors: true });
+// result.errors = [
+//  {
+//      code: 'INVALID_TYPE',
+//      expected: ['integer'],
+//      actual: 'boolean',
+//      dataPath: '#/3'
+//  },
+//  {
+//      code: 'INVALID_TYPE',
+//      expected: ['integer'],
+//      actual: 'string',
+//      dataPath: '#/2'
+//  }
+// ]
 ```
 
 ## Tests
