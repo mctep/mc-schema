@@ -1,6 +1,6 @@
 {
   "name": "mc-schema",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Very Fast JSON Schema Validator",
   "keywords": [
     "json",
@@ -28,6 +28,7 @@
     "README.md"
   ],
   "devDependencies": {
+    "coffee-script": "^1.8.0",
     "expect.js": "^0.3.1",
     "json-schema-tests": "^0.1.1",
     "lodash": "^2.4.1",
