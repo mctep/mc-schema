@@ -17,6 +17,7 @@ testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/'));
 testDir(path.resolve(__dirname, './json-schema-test-suite/tests/draft4/optional'));
 testDir(path.resolve(__dirname, './errors'));
 testDir(path.resolve(__dirname, './coerce'));
+testDir(path.resolve(__dirname, './other'));
 
 function testDir(pathSuite) {
 	_(fs.readdirSync(pathSuite))
@@ -68,6 +69,7 @@ function testFn(test) {
 			result = this.schema.validate(test.data, test.errors ? {
 				collectErrors: true
 			} : {});
+
 			expect(result.valid).to.be.eql(test.valid);
 
 			if (test.errors) {
