@@ -1,8 +1,12 @@
 var validator = require('../lib');
 
+validator.addType('aaa', function(typeOk) {
+	typeOk = true;
+});
+
 var schema = validator.compile(
 	{
-		type: 'array',
+		type: 'aaa',
 		items: {
 			type: 'integer'
 		}
@@ -10,5 +14,5 @@ var schema = validator.compile(
 );
 
 console.log(schema.validate(
-	[1,2,'3',false], { collectErrors: true }
+	[1,2,3,2], { collectErrors: true }
 ));
