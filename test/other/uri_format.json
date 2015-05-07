@@ -28,8 +28,14 @@
 			},
 
 			{
-				"description": "a valid URI with login pass",
+				"description": "a valid URI with login and pass",
 				"data": "http://user:pass@my.domain/?baz=qux#quux",
+				"valid": true
+			},
+
+			{
+				"description": "a valid URI with login, pass and port",
+				"data": "amqp://guest:guest@amqp:5672",
 				"valid": true
 			}
 		]
