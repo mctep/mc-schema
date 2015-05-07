@@ -18,7 +18,7 @@
     "url": "https://github.com/mctep/mc-schema/issues"
   },
   "scripts": {
-    "test": "./node_modules/coffee-script/bin/coffee ./node_modules/.bin/json-schema-tests test/json-schema-test.coffee",
+    "test": "./node_modules/coffee-script/bin/coffee ./node_modules/.bin/json-schema-tests test/json-schema-test.coffee && npm run test_old",
     "test_old": "node_modules/.bin/_mocha test/json.js"
   },
   "main": "lib/index.js",

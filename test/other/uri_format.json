@@ -1,0 +1,31 @@
+[
+	{
+		"description": "Custom validation of URIs",
+		"schema": {"format": "uri"},
+		"tests": [
+			{
+				"description": "a valid localhost URI",
+				"data": "http://localhost/?baz=qux#quux",
+				"valid": true
+			},
+
+			{
+				"description": "a valid TLD URI",
+				"data": "http://my.local-host/?baz=qux#quux",
+				"valid": true
+			},
+
+			{
+				"description": "a valid oneletter TLD URI",
+				"data": "http://my.l/?baz=qux#quux",
+				"valid": true
+			},
+
+			{
+				"description": "a invalid TLD URI",
+				"data": "http://my.l-/?baz=qux#quux",
+				"valid": false
+			}
+		]
+	}
+]
