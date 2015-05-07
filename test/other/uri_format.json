@@ -25,6 +25,12 @@
 				"description": "a invalid TLD URI",
 				"data": "http://my.l-/?baz=qux#quux",
 				"valid": false
+			},
+
+			{
+				"description": "a valid URI with login pass",
+				"data": "http://user:pass@my.domain/?baz=qux#quux",
+				"valid": true
 			}
 		]
 	}
