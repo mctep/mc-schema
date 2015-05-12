@@ -1,6 +1,6 @@
 {
   "name": "mc-schema",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Very Fast JSON Schema Validator",
   "keywords": [
     "json",
