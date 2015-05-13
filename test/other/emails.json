@@ -1,0 +1,66 @@
+[
+	{
+		"description": "$ref like pointer",
+		"schema": {
+			"format": "email"
+		},
+
+		"tests": [
+			{
+				"description": "niceandsimple@example.com",
+				"data": "niceandsimple@example.com",
+				"valid": true
+			},
+			{
+				"description": "a.little.lengthy.but.fine@dept.example.com",
+				"data": "a.little.lengthy.but.fine@dept.example.com",
+				"valid": true
+			},
+			{
+				"description": "\"much.more unusual\"@example.com",
+				"data": "\"much.more unusual\"@example.com",
+				"valid": true
+			},
+			{
+				"description": "\"very.unusual.@.unusual.com\"@example.com",
+				"data": "\"very.unusual.@.unusual.com\"@example.com",
+				"valid": true
+			},
+			{
+				"description": "admin@mailserver1 (local domain name with no TLD)",
+				"data": "admin@mailserver1",
+				"valid": true
+			},
+			{
+				"description": "admin@mailserver1 (local domain name with one-letter TLD)",
+				"data": "admin@mailserver1.m",
+				"valid": true
+			},
+			{
+				"description": "#!$%&'*+-/=?^_`{}|~@example.org",
+				"data": "#!$%&'*+-/=?^_`{}|~@example.org",
+				"valid": true
+			},
+			{
+				"description": "\" \"@example.org (space between the quotes)",
+				"data": "\" \"@example.org",
+				"valid": true
+			},
+			{
+				"description": "üñîçøðé@example.com (Unicode characters in local part)",
+				"data": "üñîçøðé@example.com",
+				"valid": true
+			},
+			{
+				"description": "üñîçøðé@üñîçøðé.com (Unicode characters in domain part)",
+				"data": "üñîçøðé@üñîçøðé.com",
+				"valid": true
+			},
+			{
+				"description": "моя_почта@домен.рф (Unicode characters in domain part)",
+				"data": "моя_почта@домен.рф",
+				"valid": true
+			}
+		]
+	}
+]
