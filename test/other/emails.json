@@ -60,6 +60,60 @@
 				"description": "моя_почта@домен.рф (Unicode characters in domain part)",
 				"data": "моя_почта@домен.рф",
 				"valid": true
+			},
+
+			{
+				"description": "Abc.example.com (an @ character must separate the local and domain parts)",
+				"data": "Abc.example.com",
+				"valid": false
+			},
+
+			{
+				"description": "a\"b(c)d,e:f;g<h>i[j\\k]l@example.com (none of the special characters in this local part is allowed outside quotation marks)",
+				"data": "a\"b(c)d,e:f;g<h>i[j\\k]l@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "just\"not\"right@example.com (quoted strings must be dot separated or the only element making up the local-part)",
+				"data": "just\"not\"right@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "this is\"not\\allowed@example.com (spaces, quotes, and backslashes may only exist when within quoted strings and preceded by a backslash)",
+				"data": "this is\"not\\allowed@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "this\\ still\\\"not\\\\allowed@example.com (even if escaped (preceded by a backslash), spaces, quotes, and backslashes must still be contained by quotes)",
+				"data": "this\\ still\\\"not\\\\allowed@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "john..doe@example.com (double dot before @)",
+				"data": "john..doe@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "john.doe@example..com (double dot after @)",
+				"data": "john.doe@example..com",
+				"valid": false
+			},
+
+			{
+				"description": "a valid address with a leading space",
+				"data": " niceandsimple@example.com",
+				"valid": false
+			},
+
+			{
+				"description": "a valid address with a trailing space",
+				"data": "niceandsimple@example.com ",
+				"valid": false
 			}
 		]
 	}
